@@ -1,7 +1,9 @@
 package com.mizbah.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,9 +38,18 @@ public class Student {
 	@Column(name = "email")
 	private String email;
 
-	@ManyToMany
+	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinTable(name = "course_student", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
 	private List<Course> courses;
+
+	public void add(Course course) {
+
+		if (courses == null) {
+			courses = new ArrayList<>();
+		}
+
+		courses.add(course);
+	}
 
 	public Student(String firstName, String lastName, String email) {
 		super();

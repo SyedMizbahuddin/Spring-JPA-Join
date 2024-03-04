@@ -56,8 +56,17 @@ public class CruddemoApplication {
 //			findCourseReview(courseRepository, 10);
 
 //			deleteById(courseRepository, 10);
+			
+			findCourseStudents(courseRepository, 10);
 		};
 
+	}
+
+	private void findCourseStudents(CourseRepository courseRepository, int i) {
+		Course c = courseRepository.findCourseStudents(i);
+
+		System.out.println(c.getStudents().size());
+		
 	}
 
 	private void createCourseStudent(CourseRepository courseRepository, StudentRepository studentRepository) {
@@ -66,16 +75,26 @@ public class CruddemoApplication {
 		Course course3 = new Course("Physics");
 		Course course4 = new Course("Chemistry");
 
-		courseRepository.save(course1);
-		courseRepository.save(course2);
-		courseRepository.save(course3);
-		courseRepository.save(course4);
+//		courseRepository.save(course1);
+//		courseRepository.save(course2);
+//		courseRepository.save(course3);
+//		courseRepository.save(course4);
 
 		Student student1 = new Student("sai", "supree", "supree@ok.com");
 		Student student2 = new Student("dany", "kani", "kani.com");
 
-		studentRepository.save(student1);
+//		studentRepository.save(student1);
+//		studentRepository.save(student2);
+
+		course1.add(student1);
+		course1.add(student2);
+		courseRepository.save(course1);
+
+		student2.add(course4);
+		student2.add(course3);
+		student2.add(course1);
 		studentRepository.save(student2);
+
 	}
 
 	private void deleteById(CourseRepository courseRepository, int id) {

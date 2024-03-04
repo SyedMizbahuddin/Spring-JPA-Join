@@ -13,4 +13,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
 	@Query("SELECT c FROM Course c JOIN FETCH c.reviews reviews WHERE c.id=:id")
 	public Course findById(int id);
+
+	@Query("SELECT c FROM Course c JOIN FETCH c.students students WHERE c.id=:id")
+	public Course findCourseStudents(int id);
 }
